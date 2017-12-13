@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>推流</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.bootcss.com/socket.io/1.7.4/socket.io.js"></script>
+<script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="//lib.sumeme.com/base/scripts/--/util/store.js"></script>
+<script src="//aiapp.sumeme.com/aiwan-m/static/page/play/pako_67ced8a.js"></script>
+<link rel="stylesheet" href="//aiapp.sumeme.com/aiwan-m/static/page/play/index_62be71a.css">
+</head>
+<body>
+<header>推流</header>
+<div class="body">
+<div class="camera-select">
+房间ID：<input id="roomID" name="roomID" value="" style="width:100px;"/>
+<select id="server">
+<option value="test">测试服</option>
+<option value="production">正式服</option>
+</select>
+<button id="btnConnect">
+连接socket
+</button>
+<button id="btnDisconnect">
+断开连接socket
+</button>
+<span id="socketStatus"></span>
+<br>
+视频一：
+<select id="select1" data-video="video1"></select>
+视频二：
+<select id="select2" data-video="video2"></select>
+<button id="btnUpload">
+开始上传
+</button>
+</div>
+<div class="video">
+<div class="video-item">
+<div class="video-name">视频一</div>
+<div>
+<video id="video1" autoplay style="width:160px;height:120px;"></video>
+</div>
+</div>
+<div class="video-item">
+<div class="video-name">视频二</div>
+<div>
+<video id="video2" autoplay style="width:160px;height:120px;"></video>
+</div>
+</div>
+</div>
+<div class="video" style="height:520px;">
+<div class="video-item preview" style="width:480px;">
+<div class="video-name">canvas视频一 <span id="size1"></span></div>
+<div>
+<canvas id="canvas1" width="408" height="480"></canvas>
+</div>
+</div>
+<div class="video-item preview" style="width:480px;">
+<div class="video-name">image 视频一 <span id="size1"></span></div>
+<div>
+<img id="image1" src="" alt="" style="width:408px;height:480px;">
+</div>
+</div>
+<div class="video-item preview" style="width:480px;">
+<div class="video-name">canvas视频二 <span id="size2"></span></div>
+<div>
+<canvas id="canvas2" width="408" height="480"></canvas>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        var ROOM_ID_TAG = 'video_room_id'
+
+        var action = {};
+
+        var $select1      = null,
+            $select2      = null,
+            canvas1       = null,
+            canvas2       = null,
+            context1      = null,
+            context2      = null,
+            size1         = null,
+            size2         = null,
+            video1        = null,
+            video2        = null,
+            cameraAry     = [],
+            $socketStatus = null,
+            $roomID       = null,
+            videoType     = 'video1',
+            subUserId     = null,
+            pushTimer     = null,// 推送图片的定时器
+            stopTimer      = null,
+            socket        = null,
+            handleAction  = {};
+
+        function _init() {
+            $select1 = $('#select1');
+            $select2 = $('#select2');
+            $size1 = $('#size1');
+            $size2 = $('#size2');
+            $socketStatus = $('#socketStatus');
+            $roomID = $('#roomID');
+            video1 = document.getElementById('video1');
+            video2 = document.getElementById('video2');
+            canvas1 = document.getElementById('canvas1');
+            canvas2 = document.getElementById('canvas2');
+            context1 = canvas1.getContext('2d');
+            context2 = canvas2.getContext('2d');
+            _getVideos();
+
+            var roomId = $.store.get(ROOM_ID_TAG);
+            if (roomId) {
+                $roomID.val(roomId);
+                //                _connectSocket(roomId);
+            }
+
+
+            setInterval(_getUserInfo, 1000 * 60 * 60 * 4);
+        }
+
+        function _getUserInfo() {
+            $.getJSON(action.user)
+        }
+
+
+        function _getVideos() {
+            navigator.mediaDevices.enumerateDevices()
+                .then(function (deviceInfos) {
+                    for (var i = 0; i !== deviceInfos.length; ++i) {
+                        var deviceInfo = deviceInfos[i];
+                        if (deviceInfo.kind === 'videoinput') {
+                            console.log('deviceInfo', deviceInfo)
+                            cameraAry.push({
+                                text: deviceInfo.label || 'camera ' + cameraAry.length + 1,
+                                value: deviceInfo.deviceId
+                            });
+                        } else {
+                            //                            console.log('Some other kind of source/device: ', deviceInfo);
+                        }
+                    }
+
+                    if (!cameraAry.length) {
+                        alert('没有找到摄像头');
+                        return;
+                    }
+
+
+                    console.log('cameraAry', cameraAry)
+                    for (var i = 0, len = cameraAry.length; i < len; i++) {
+                        var camera = cameraAry[i];
+                        _appendOption(camera, $select1[0]);
+                        _appendOption(camera, $select2[0]);
+                    }
+                    if (cameraAry.length > 1) {
+                        $select2.val(cameraAry[1].value);
+                    }
+
+                    _registerEvent();
+
+                    _initVideo($select1.val(), document.getElementById('video1'));
+                    _initVideo($select2.val(), document.getElementById('video2'));
+
+                    //                    setInterval(function () {
+                    //                        var img = _getImg(video1, context1, canvas1, $size1);
+                    //                        image1.src = img;//pako.inflate(img, {to: 'string'});
+                    //                    }, 400);
+                })
+                .catch(function (err) {
+                    console.error('get devices error', err);
+                });
+        }
+
+        function _appendOption(camera, $select) {
+            var option = document.createElement('option');
+            option.text = camera.text;
+            option.value = camera.value;
+            $select.appendChild(option);
+        }
+
+        function _registerEvent() {
+            $('select[data-video]').change(function () {
+                _initVideo($(this).val(), document.getElementById($(this).data('video')));
+            })
+
+            $('#btnConnect').click(function () {
+                var roomId = $.trim($roomID.val());
+                if (!roomId) {
+                    alert('请填写房间ID');
+                    return;
+                }
+
+                //                if ($('#server').val() === 'test') {
+                //                    action = {
+                //                        user: '//test-api.memeyule.com/user/info/053d0b47d6fd2c09e12503c6dfcdb414',
+                //                        socket: 'https://test-play-ws.memeyule.com?access_token=053d0b47d6fd2c09e12503c6dfcdb414&platform=1&room_id='
+                //                    }
+                //                } else {
+                //                    action = {
+                //                        user: '//api.memeyule.com/user/info/2c8900b3e7c674d0417da8ee717cf26a',
+                //                        socket: 'https://play-ws.memeyule.com?access_token=2c8900b3e7c674d0417da8ee717cf26a&platform=1&room_id='
+                //                    }
+                //                }
+
+                if ($('#server').val() === 'test') {
+                    action = {
+                        user: '//test-aiapi.memeyule.com/user/info/253a90ebcf4b4473561eeb271fd9e582',
+                        //                        socket: 'http://test-aiws.memeyule.com:6010?access_token=253a90ebcf4b4473561eeb271fd9e582&platform=1&room_id='
+                        socket: 'https://test-aiws.memeyule.com?access_token=253a90ebcf4b4473561eeb271fd9e582&video_server=1&platform=1&room_id='
+                    }
+                } else {
+                    action = {
+                        user: '//aiapi.memeyule.com/user/info/ad75b8d321c3bd0b2219e63b48e96771',
+                        socket: 'https://aiws.memeyule.com?access_token=ad75b8d321c3bd0b2219e63b48e96771&video_server=1&platform=1&room_id='
+                    }
+                }
+                _getUserInfo();
+                $.store.set(ROOM_ID_TAG, roomId);
+                _connectSocket(roomId);
+            })
+            $('#btnDisconnect').click(function () {
+                if (socket) {
+                    socket.close();
+                }
+            })
+
+            $('#btnUpload').click(function () {
+                var $this = $(this);
+                if ($this.text()=='开始上传') {
+                    $this.text('停止上传');
+                    if (!socket) {
+                        alert('socket 未连接')
+                        return;
+                    }
+
+                    _startUpload();
+                } else {
+                    $this.text('开始上传');
+                    _stopUpload();
+                }
+            })
+        }
+
+        function _initVideo(deviceId, video) {
+            navigator.mediaDevices.getUserMedia({
+                video: {
+                    deviceId: deviceId,
+                    width: {min: 640},
+                    height: {min: 480}
+                }
+            }).then(function (stream) {
+                video.srcObject = stream;
+            }).catch(function (err) {
+                console.error('init video error', err)
+            });
+        }
+
+        function _connectSocket(roomId) {
+
+            if (socket) {
+                socket.close();
+            }
+
+            socket = io(action.socket + roomId);
+            //            socket = io('http://test-play-ws.memeyule.com:6030?access_token=053d0b47d6fd2c09e12503c6dfcdb414&platform=1&room_id=' + roomId);
+
+            socket.on('connect', function () {
+                $socketStatus.text('连接成功');
+                console.log('连接成功');
+            });
+
+            socket.on('error', function (err) {
+                console.log('socket 错误', err);
+                $socketStatus.text('socket 错误');
+                _stopUpload();
+            })
+            socket.on('disconnect', function (err) {
+                console.log('socket 断开连接');
+                $socketStatus.text('socket 已断开');
+                _stopUpload();
+            })
+
+            socket.on('message', function (msg, fn) {
+                console.log('msg:', msg);
+                msg = JSON.parse(msg);
+                handleAction[msg.action] && handleAction[msg.action](msg);
+            });
+        }
+
+        // 目前只考虑推送给正在玩的用户
+//        handleAction['room.video.sub'] = function (msg) {
+//            videoType = msg.data.type;
+//            subUserId = msg.data.sub_id;
+//            _startUpload();
+//            subTimer = setTimeout(function () {
+//                _stopUpload();
+//            }, 1000 * 60);// 防止意外断开，无法取消
+//
+//        }
+//        handleAction['room.video.un_sub'] = function (msg) {
+//            if (msg.data.sub_id === subUserId) {
+//                subUserId = null;
+//                _stopUpload();
+//            }
+//        }
+
+        handleAction['catchu.type'] = function (msg) {
+            //0-开始游戏 1-备货中 2-游戏结束 3-房间关闭 4-房间空闲
+            switch (msg.data.type) {
+                case 0:
+                    _startUpload();
+                    stopTimer = setTimeout(function () {
+                        _stopUpload();
+                    }, 1000 * 60);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    _stopUpload();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function _startUpload() {
+            _stopUpload();
+            pushTimer = setInterval(_sendImg, 100);
+        }
+
+        function _stopUpload() {
+            _sendImg(true);
+            clearTimeout(stopTimer);
+            clearInterval(pushTimer);
+        }
+
+
+        function _sendImg(isStop) {
+
+            socket.emit('message', JSON.stringify({
+                action: 'room.video.pub',
+                data: {
+                    video_1: _getImg(video1, context1, canvas1, $size1),
+                    video_2: _getImg(video2, context2, canvas2, $size2),
+                    is_stop: !!isStop
+                }
+            }), function (res) {
+                // appendSend(data, res);
+            });
+        }
+
+        function _getImg(video, context, canvas, size) {
+            // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+
+
+            var sw = video.videoWidth;
+            var sh = video.videoHeight;
+
+            var dh = 480;
+            var dw = dh * 0.85;//
+            var sx = ( sw - dw) / 2;
+            //            console.log('videoWidth', video.videoWidth, 'videoHeight', video.videoHeight)
+            context.drawImage(video, sx, 0, dw, dh, 0, 0, dw, dh);
+            //            context.drawImage(video, sx, 0, dw, dh, 0, 0, dw / 2, dh / 2);
+
+            var img = canvas.toDataURL('image/jpeg', 0.3);
+            var len = img.length;
+            var text = ((len - (len / 8) * 2) / 1024).toFixed(2) +
+                '___' + (len / 1024).toFixed(2) +
+                '___width:' + sw + '__height:' + sh;
+            //
+            //
+            //            var result = pako.deflate(img, {to: 'string'});
+            //
+            //            text += '__' + (result.length / 1024).toFixed(2)
+            //
+            size.text(text);
+            //            return result;
+            return img;
+        }
+
+
+        _init();
+    });
+</script>
+</body>
+</html>

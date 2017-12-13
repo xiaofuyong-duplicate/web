@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>抓娃娃</title>
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"/>
+ 
+<style type="text/css">
+*{margin: 0;padding: 0;background: #40baff }
+         .shipinquyu{ width: 100%; height: auto; }  
+    .shipinquyu img{ width: 100%; height: auto;border:0;display: block;}
+      .jianpanquyu{background: blue}
+      .direction{width: 100%;height: auto;}
+      .direction .start {
+    margin: .25rem .75rem 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+  .direction {
+    width: 8.75rem;
+    height: 7.25rem;
+    position: relative;
+}
+ .direction span.d-top {
+    top: 0;
+    left: 2.25rem;
+    background: url(https://asset-cdn.aldsd.net/page/static/ddwwj/v1/up.png) no-repeat;
+    background-size: 2.75rem;
+}
+  .start .direction span.d-right {
+    top: 2.05rem;
+    right: 12%;
+    background: url(https://asset-cdn.aldsd.net/page/static/ddwwj/v1/right.png) no-repeat;
+    background-size: 2.75rem;
+}
+.start .direction span.d-bottom {
+    bottom: 4%;
+    right: 3.5rem;
+    background: url(https://asset-cdn.aldsd.net/page/static/ddwwj/v1/down.png) no-repeat;
+    background-size: 2.75rem;
+}
+.start .direction span.d-left {
+    left: 0;
+    top: 2.175rem;
+    background: url(https://asset-cdn.aldsd.net/page/static/ddwwj/v1/left.png) no-repeat;
+    background-size: 2.75rem;
+}
+</style>
+</head>
+
+<body ontouchstart>
+<!-- 第一屏内容 -->
+<div class="diyiping">
+	<div class="shipinquyu">
+		<img src="350x430.jpg" alt=""></div>
+	<div class="jianpanquyu" id="btnB" >
+<div class="direction">
+	<span class="d-top">
+	
+</span> <span class="d-right">
+	
+</span> <span class="d-bottom"></span>
+ <span class="d-left"></span>
+</div>
+	</div>
+</div>
+<!-- 第二屏内容 -->
+<div class="dierping">
+	抓娃娃记录、娃娃详情
+</div>
+<script>
+
+	var h=document.body.scrollHeight;
+	obj = document.getElementById("btnB");
+	var hh=h-450;
+	obj.style.cssText = "background-color:black; display:block;color:White;height:"+ hh +"px";
+	
+</script>
+</body>
+</html>

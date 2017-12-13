@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head>
+	<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=0">
+	
+	<title>直播抓娃娃</title>
+	<style>
+		.shock{
+       font-size: 15px;
+       font-weight: bold;
+       color: red;
+   }
+
+	</style>
+</head><body>
+	<div class="shock">
+        按我手机会震动
+ </div>
+
+<script>
+	 function vibration(){
+       navigator.vibrate = navigator.vibrate
+           navigator.webkitVibrate
+           navigator.mozVibrate
+           navigator.msVibrate;
+
+       if (navigator.vibrate) {
+          
+           console.log("支持设备震动！");
+       }
+     $(".shock").click(function(){
+         alert("1111");
+         navigator.vibrate([500, 300, 400,300]);
+     });
+   }
+</script>
+
+
+</body></html>

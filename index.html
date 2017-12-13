@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection"content="telephone=no, email=no" />
+		<meta http-equiv="Cache-Control" content="no-transform" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta charset="UTF-8" name="apple-itunes-app" content="app-id=1286981761, affiliate-data=myAffiliateData, app-argument=friendjump01://123">
+		<title>快来家乡棋牌</title>
+		<link rel="stylesheet" type="text/css" href="./css/common.css" />
+		<script type="text/javascript">
+			!function(){
+		        var cw=document.documentElement.clientWidth||document.body.clientWidth;
+		        cw=cw>720?720:cw;
+		        var zoom=cw/360;
+		        document.write('<style id="htmlzoom">html{font-size:'+(zoom*50)+'px;}</style>');
+		        window.addEventListener('resize',function(){
+		            cw=document.documentElement.clientWidth||document.body.clientWidth;
+		            if(cw>720)cw=720;
+		            zoom=cw/360;
+		            document.getElementById('htmlzoom').innerHTML='html{font-size:'+(zoom*50)+'px;}';
+		        });
+		    }();
+		</script>
+
+		<style type="text/css">*{box-sizing: border-box;}
+			.main{position:relative;width:7.2rem;margin:0 auto;}
+			
+			.bg{height:12rem;background:url("./img/bj.jpg") no-repeat;background-size:100% 100%;}
+			
+			.qr_code_img{position:absolute;z-index:1;top:0;left:0;width:7.2rem;}
+			
+			.btn_open{position: absolute;z-index:2;top:9.39rem;left:2.2rem;width:5.99rem;height:2.35rem;background:url("./img/btn.jpg") no-repeat;background-size:50%;}
+			
+			.thickdiv {  position: fixed; top: 0; left: 0; width: 100%;  height: 100%; background:#000000; border: 0 none; opacity: 0.9; filter:alpha(opacity=50); z-index:101;}
+			.prompt{ top:5%; right:18%; font-size:.36rem; color:#e3e3e3; letter-spacing:1px; line-height:.55rem; z-index:102;}
+			.prompt img{ margin:.2rem .3rem; width:.87rem; height:.87rem;}
+			.prompt span{ position:absolute;}
+			.prompt .browser{ top:2.5rem; left:1.3rem; font-size:.24rem; line-height:.3rem; text-align:center; color:#a3a3a3;}
+			.prompt .arrow{ top:-.5rem; right:-1rem; width:.98rem; height:.93rem; background:url(https://pngpyj.happydw.cn/bxpyj/lobby/lpmj/ico_arrow.png) no-repeat; background-size:100% 100%;}
+			
+			.pup_confirm{display:none;position:fixed;z-index:99;bottom:1.55rem;left:50%;width:7.1rem;margin-left:-3.55rem;padding-bottom:.33rem;background:linear-gradient(to bottom,rgba(243,224,180,.95),rgba(227,202,145,.95));background:-webkit-linear-gradient(to bottom,rgba(243,224,180,.95),rgba(227,202,145,.95));background:-webkit-gradient(linear,0 0,0 100%,from(rgba(243,224,180,.95)),to(rgba(227,202,145,.95)));border:.02rem solid rgba(77,65,23,.47);border-radius:.25rem;}
+			.pup_confirm::after{content:"";position: absolute;top:0;left:0;width:100%;height:.5rem;border-top:.02rem solid #fff;border-radius:.25rem;}
+			.text_content{display:table-cell;padding:0 .2rem;width:7.06rem;min-height: 1.62rem;height:1.62rem;vertical-align: middle;}
+			.text_content .text{font-size:.44rem;line-height:1;color:#623810;text-align: center;}
+			.button_box {font-size:0;text-align:center;}
+			.button_box .btn{display: inline-block;width:2.4rem;height:.95rem;margin:0 .32rem;padding-top:.25rem;font-size:.48rem;line-height:1;color:#ffffff;text-align: center;}		</style>
+	</head>
+
+	<body>
+		<div class="main">
+			<!-- 背景 -->
+			<p class="bg"></p>
+			
+			<!--<img id="qrCodeImg01" class="qr_code_img" style="display:none" src="http://png.gc73.com.cn/website_img/whmj/qr_code_03.png" />
+			<img id="qrCodeImg02" class="qr_code_img" src="http://png.gc73.com.cn/website_img/whmj/qr_code_02.png" />
+			 按钮-打开 -->
+			<a class="btn_open" href="javascript:void(0)"></a>
+			
+		</div>
+
+		<div class="thickdiv" id="thickdiv" style="display: none;"></div>
+			<!-- ios 提示 -->
+			<div class="pa prompt ios_prompt" style="display:none">
+				1. 点击右上角的<img src="https://pngpyj.happydw.cn/bxpyj/lobby/hlddz/share_ios.png" title="分享" alt="分享">按钮<br>2. 选择<img src="https://pngpyj.happydw.cn/bxpyj/lobby/hlddz/browser_ios.png" title="safari" alt="safari">就能下载啦<span class="browser">在Safari中
+				<br>打开</span>
+				<span class="arrow"></span>
+			</div>
+			<!-- android 提示 -->
+			<div class="pa prompt android_prompt" style="display:none">
+				1. 点击右上角的<img src="https://pngpyj.happydw.cn/bxpyj/lobby/hlddz/share_android.png" title="分享" alt="分享">按钮<br>2. 选择<img src="https://pngpyj.happydw.cn/bxpyj/lobby/hlddz/browser_android.png" title="safari" alt="safari">就能下载啦<span class="browser">在浏览器打开</span>
+				<span class="arrow"></span>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="http://js.gc73.com.cn/jquery-1.11.3.min.js" ></script>
+		<script type="text/javascript" src="https://jspyj.happydw.cn/bxpyj/base/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="https://jspyj.happydw.cn/bxpyj/util/webkit1.0.js" ></script>
+		<script type="text/javascript">
+		var room =0;		
+		var reply = 0;
+		$(function(){
+			$(document).click(function (event) {
+					var id = $(event.target).attr('id');
+					if((id == 'thickdiv')){
+						hideHint();
+					}
+				});
+				
+			if(Webkit.isWenxin()) {
+					$(".btn_open").attr("href", "javascript:showHint();");
+						if(document.referrer.match('iosjump.html')) {
+							showHint();
+						}
+					if (autoGuide == 1) {
+						showHint();
+					}
+				} else {
+					if(Webkit.isIos() || Webkit.isPad()) {
+							$(".btn_open").attr("href", "javascript:iosJump();");
+					} else {
+							if(room > 0) {
+								var ifr = document.createElement('iframe');
+					            ifr.src ="friendshddz://pyj?room=" + room;
+					            ifr.style.display = 'none';
+					            document.body.appendChild(ifr);
+					            $(".btn_open").attr("href", "https://static.jxpoke.net/client/static/client_package/game_cocos_mj.apk");
+								$("meta[name='apple-itunes-app']").attr('content','app-id=1286981761, affiliate-data=myAffiliateData, app-argument=friendjump01://pyj?room=' + room);
+							} else if(reply > 0) {
+								var ifr = document.createElement('iframe');
+					            ifr.src ="friendshddz://pyj?replay=" + reply;
+					            ifr.style.display = 'none';
+					            document.body.appendChild(ifr);
+					            $(".btn_open").attr("href", "https://static.jxpoke.net/client/static/client_package/game_cocos_mj.apk");
+					            $("meta[name='apple-itunes-app']").attr('content','app-id=1286981761, affiliate-data=myAffiliateData, app-argument=friendjump01://pyj?replay=' + reply);
+							} else {
+								var ifr = document.createElement('iframe');
+								ifr.src ="friendshddz://room.hlddz:80";
+								ifr.style.display = 'none';
+								document.body.appendChild(ifr);
+								$(".btn_open").attr("href", "javascript:window.open('https://static.jxpoke.net/client/static/client_package/game_cocos_mj.apk');");
+							}
+							
+					}
+				}	
+		 		
+			});
+
+		var iosJump = function()
+			{
+				
+				if (room == 0 && reply == 0) {
+			    	var ifr2 = document.createElement('iframe');
+			  		ifr2.src = 'friendjump01://';
+			  		ifr2.style.display = 'none';
+			  		document.body.appendChild(ifr2);
+			  		setTimeout(function() {
+			  			document.body.removeChild(ifr2);
+			  			$(".btn_download").attr("href", "https://itunes.apple.com/cn/app/id1286981761");
+			  		}, 1200);
+			    } else if (room > 0 && reply == 0) {
+				    var ifr2 = document.createElement('iframe');
+				    ifr2.src = 'friendjump01://pyj?room=' + room;
+				    ifr2.style.display = 'none';
+				    document.body.appendChild(ifr2);
+				    $("meta[name='apple-itunes-app']").attr('content','app-id=1193872261, affiliate-data=myAffiliateData, app-argument=friendjump01://pyj?room=' + room);
+				    setTimeout(function() {
+				    	document.body.removeChild(ifr2);
+				        $(".btn_download").attr("href", "https://itunes.apple.com/cn/app/id1286981761");
+				    }, 1200);
+			    } else if (room == 0 && reply > 0) {
+				    var ifr2 = document.createElement('iframe');
+				    ifr2.src = 'friendjump01://pyj?replay=' + reply;
+				    ifr2.style.display = 'none';
+				    document.body.appendChild(ifr2);
+				    $("meta[name='apple-itunes-app']").attr('content','app-id=1286981761, affiliate-data=myAffiliateData, app-argument=friendjump01://pyj?replay=' + reply);
+				    setTimeout(function() {
+				        document.body.removeChild(ifr2);
+				        $(".btn_download").attr("href", "https://itunes.apple.com/cn/app/id1286981761");
+				    }, 1200);
+			    }
+		    }
+
+
+			var showHint = function(){
+				if(Webkit.isIos() || Webkit.isPad()) {
+					if (getIOSVersion() >= 9) {
+						// ios9以上的微信支持直接跳appstore
+						window.location.href="https://itunes.apple.com/cn/app/id1286981761";
+					} else {
+						$(".thickdiv").show();
+						$(".ios_prompt").show();
+					}
+				} else {
+					$(".thickdiv").show();
+					$(".android_prompt").show();
+				}
+		    }
+		
+			var showConfirm = function(){
+		   		$(".pup_confirm").show();
+		   		$(".thickdiv").show();
+		    }
+		   
+		    var hideConfirm = function(){
+		   		$(".pup_confirm").hide();
+		   		$(".thickdiv").hide();
+		    }
+		
+		    var hideHint = function(){
+				$(".thickdiv").hide();
+				$(".ios_prompt").hide();
+				$(".android_prompt").hide();
+		    }
+
+			function getIOSVersion() {
+				var agent = navigator.userAgent.toLowerCase() ;
+				var version;
+				if (agent.indexOf("like mac os x") > 0) {
+					//ios
+					var regStr_saf = /os [\d._]*/gi ;
+					var verinfo = agent.match(regStr_saf) ;
+					version = (verinfo+"").replace(/[^0-9|_.]/ig,"").replace(/_/ig,".");
+				}
+				var version_str = version+"";
+				if (version_str != "undefined" && version_str.length > 0) {
+					version = version.split(".")[0];
+				}
+				if (version == null || version == "") {
+					version = 0;
+				}
+				return version;
+			}
+
+		</script>
+	</body>
+</html>

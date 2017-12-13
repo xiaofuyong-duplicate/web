@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head>
+	<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=0">
+	
+	<title>直播抓娃娃</title>
+	
+</head><body>
+	<div id=app-box></div>
+	 <img id="receiver" style="width:1600px;height:900px"/>
+ 
+	<script src=https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js></script>
+ 
+ <script type="text/javascript" charset="utf-8">
+
+
+        //创建一个socket实例
+
+        var ws= new WebSocket("ws://120.79.11.233:9999/");
+        //alert("ws://"+document.domain+":8008")
+			//ws.binaryType = 'arraybuffer';
+			ws.binaryType ='blob';
+
+
+        var image = document.getElementById('receiver');
+         // 监听消息
+
+         ws.onmessage = function(data)
+
+        {
+
+            image.src=data.data;
+
+        }
+
+    </script>
+
+</body></html>

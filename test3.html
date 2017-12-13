@@ -1,0 +1,487 @@
+<html style="font-size: 40px;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script>
+    window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+        function c() {
+            var d = document.documentElement;
+            var cw = d.clientWidth || 750;
+            d.style.fontSize = (20 * (cw / 375)) > 40 ? 40 + 'px' : (20 * (cw / 375)) + 'px';
+        }
+        c();
+        return c;
+    })(), false);
+    </script>
+    <link href="http://ddwwj.youxideng.cn/h5/common_6db86166.css" rel="stylesheet">
+    <link href="http://ddwwj.youxideng.cn/h5/gamedetail_d1548df9.css" rel="stylesheet">
+    <style type="text/css">
+    * {
+        box-sizing: border-box
+    }
+
+    a,
+    abbr,
+    acronym,
+    address,
+    applet,
+    article,
+    aside,
+    audio,
+    b,
+    big,
+    blockquote,
+    body,
+    canvas,
+    caption,
+    center,
+    cite,
+    code,
+    dd,
+    del,
+    details,
+    dfn,
+    div,
+    dl,
+    dt,
+    em,
+    embed,
+    fieldset,
+    figcaption,
+    figure,
+    footer,
+    form,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    header,
+    hgroup,
+    html,
+    i,
+    iframe,
+    img,
+    ins,
+    kbd,
+    label,
+    legend,
+    li,
+    mark,
+    menu,
+    nav,
+    object,
+    ol,
+    output,
+    p,
+    pre,
+    q,
+    ruby,
+    s,
+    samp,
+    section,
+    small,
+    span,
+    strike,
+    strong,
+    sub,
+    summary,
+    sup,
+    table,
+    tbody,
+    td,
+    tfoot,
+    th,
+    thead,
+    time,
+    tr,
+    tt,
+    u,
+    ul,
+    var,
+    video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font: inherit;
+        font-size: 100%;
+        vertical-align: baseline
+    }
+
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section,
+    summary {
+        display: block
+    }
+
+    html {
+        font-size: 100%;
+        font-size: 1em;
+        line-height: 1.5;
+        font-family: Heiti SC, Helvetica, HelveticaNeue, Droidsansfallback, Droid Sans, Microsoft YaHei;
+        color: #000;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-overflow-scrolling: touch;
+        zoom: 1
+    }
+
+    html,
+    img {
+        padding: 0;
+        margin: 0
+    }
+
+    img {
+        border: 0;
+        vertical-align: top
+    }
+
+    input[type=password],
+    input[type=text],
+    textarea {
+        border: 0;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        resize: none;
+        outline: 0;
+        box-shadow: none;
+        -webkit-appearance: none
+    }
+
+    table {
+        border-collapse: collapse
+    }
+
+    a {
+        color: #333;
+        text-decoration: none
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-size: 100%;
+        font-weight: 400
+    }
+
+    li,
+    ul {
+        list-style: none
+    }
+
+    dfn,
+    em,
+    i {
+        font-style: normal
+    }
+
+    a,
+    button,
+    img,
+    input,
+    span,
+    textarea {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        outline: none
+    }
+
+    a,
+    button,
+    input {
+        -webkit-tap-highlight-color: rgba(255, 0, 0, 0)
+    }
+
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none
+    }
+    </style>
+    <style type="text/css">
+    .mint-loadmore {
+        overflow: hidden
+    }
+
+    .mint-loadmore.drop-overflow {
+        overflow: unset
+    }
+
+    .mint-loadmore-content.is-dropped {
+        transition: .3s
+    }
+
+    .mint-loadmore-bottom,
+    .mint-loadmore-top {
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        height: 50px;
+        line-height: 50px
+    }
+
+    .mint-loadmore-top {
+        top: -50px
+    }
+
+    .mint-loadmore-bottom {
+        bottom: -50px
+    }
+
+    .mint-loadmore-spinner {
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: middle
+    }
+
+    .mint-loadmore-text {
+        height: 50px;
+        line-height: 50px;
+        font-size: .7rem;
+        vertical-align: middle;
+        color: #909090
+    }
+
+    .mint-loadmore-bottom-arrow {
+        width: .6rem;
+        height: .675rem;
+        margin-top: -.2rem;
+        margin-right: .3rem;
+        vertical-align: middle;
+        transition: .3s
+    }
+
+    .mint-loadmore-bottom-arrow.drop {
+        transform: rotate(180deg)
+    }
+    </style>
+    <style type="text/css">
+    .ui-toast {
+        position: fixed;
+        z-index: 9999;
+        top: 50%;
+        left: 50%;
+        color: #fff;
+        text-align: center;
+        border-radius: 1.25rem;
+        padding: .45rem .7rem;
+        font-size: .7rem;
+        background-color: rgba(0, 0, 0, .7);
+        transition: transform 0s ease-in-out;
+        transform: translate(-47%, -47%) scaleY(0);
+        word-break: break-all
+    }
+
+    .ui-toast.show {
+        transform: translate(-47%, -47%) scaleY(1)
+    }
+
+    .ui-toast .toast_icon_style {
+        padding-bottom: .2rem
+    }
+
+    .ui-toast .toast_icon_style .icon {
+        width: 4rem;
+        height: 3.5rem
+    }
+
+    .ui-toast .toast_icon_style .icon img {
+        margin-top: .5rem;
+        width: 2.475rem;
+        height: 2.475rem
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section id="app" class="wrap">
+            <header class="header"><em class="back_icon1"><i></i></em> <span></span> </header>
+            <div class="app-frame-wrap">
+                <div class="app-frame-body">
+                    <div class="mint-loadmore body-wrap">
+                        <div class="mint-loadmore-content" style="transform: translate3d(0px, 0px, 0px);">
+                            <!---->
+                            <div class="container-box">
+                                <div class="vedio">
+                                    <div class="scroll-wrap">
+                                        <ul class="scroll-content" style="top: 0px;">
+                                            <li> 風鳥院花月 抓到kitty猫</li>
+                                            <li> 社会复杂爷简单 抓到炮炮兵</li>
+                                            <li> 樱雪羽晗灵 抓到抱鸭布朗熊</li>
+                                            <li> 坐拥江山如画 抓到龙猫</li>
+                                            <li> Silver Crow 抓到史迪奇</li>
+                                            <li> じò ぴé执念 抓到熊本熊</li>
+                                            <li> 逆风扬尘 抓到猪猪侠</li>
+                                            <li> Dreams°凉兮 抓到微笑可妮兔</li>
+                                            <li> 爷丶有爷的范° 抓到大象</li>
+                                            <li> 故事与你 抓到抱鸭可妮兔</li>
+                                            <li> 假装不帅 抓到多摩君公仔</li>
+                                            <li> 半城风雨伴人心乀 抓到变装布朗熊（恐龙）</li>
+                                            <li> Elton 抓到蝴蝶兔</li>
+                                            <li> 辉夜姬 抓到鸭毛</li>
+                                            <li> 琪亚娜 抓到呆萌布朗熊</li>
+                                            <li> Thereborn 抓到抱鱼kitty</li>
+                                            <li> 心野套路深 抓到变装（莎莉鸡）</li>
+                                            <li> 百鬼院夜行 抓到变装布朗熊（猴子）</li>
+                                        </ul>
+                                    </div>
+                                    <div class="online"><span class="rnum"><em>6人</em> <i>在房间</i></span> <span class="icon"><img src="http://asset.6543.cn/page/static/iwanba/no4@2x.png" alt=""><img src="http://wx.qlogo.cn/mmopen/vi_32/Cp6oMCj4n8faGCOpVTWSk5nbbZ9UCnf9PdEathkokicO8l24c10Mkfjw5ja29v2d6DhIZTIVicIgKe6IsU3byKPQ/0" alt=""><img src="http://asset.6543.cn/page/static/iwanba/no8@2x.png" alt=""><img src="http://wx.qlogo.cn/mmopen/vi_32/DXXxKyj2YTFgJMKesu3jzictlgTlic9nZ8I9UwicFCRwIgoIOa33qfWYMhZ425LHWw2erxdo4hqqPzJdG2XvJl4Qw/0" alt=""><img src="http://asset.6543.cn/page/static/iwanba/no6@2x.png" alt=""><img src="http://wx.qlogo.cn/mmopen/vi_32/Ye8Fq1icFSb4fdxr25c3HckTe47az7jRPdvXgLBzxBdGsMFictRbPhwgULXZqXwXQ8TWBkMSwlv04ojCQrqWDUSg/0" alt=""></span></div>
+                                    <div class="c-content"><img src="">
+                                        <div class="londing">
+                                            娃娃正在赶来
+                                        </div>
+                                    </div>
+                                    <!---->
+                                </div>
+                                <div class="opration">
+                                    <div class="other-state">
+                                        <div class="left"></div>
+                                        <div class="center occupy">占用中</div>
+                                        <div class="right">
+                                            <h2>我的豌豆</h2>
+                                            <div class="buy"><span>30</span></div>
+                                        </div>
+                                    </div>
+                                    <!---->
+                                </div>
+                                <div class="nav-container">
+                                    <div class="nav">
+                                        <div class="item-list">
+                                            <div class="active">娃娃详情</div>
+                                            <div class="">抓取达人</div>
+                                            <div class="">抓取记录</div>
+                                        </div>
+                                        <div class="track">
+                                            <div class="active-tag pos-0"></div>
+                                        </div>
+                                    </div>
+                                    <div class="nav-wrap">
+                                        <div class="swiper-container swiper-container-horizontal swiper-container-autoheight">
+                                            <div class="swiper-wrapper" style="height: 3014px; transform: translate3d(0px, 0px, 0px);">
+                                                <div class="swiper-slide swiper-slide-active" style="width: 1467px; margin-right: 100px;">
+                                                    <div class="detail"><img src="http://wwj-static.aiwanba.com/room/3383e3f337b99b8c8f5a6122bf6931cf.jpeg" alt="">
+                                                        <!---->
+                                                    </div>
+                                                    <div class="detail"><img src="http://wwj-static.aiwanba.com/room/4495e46794bf0c5f55f9d6bae941828a.jpeg" alt="">
+                                                        <!---->
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-two swiper-slide swiper-slide-next" style="width: 1467px; margin-right: 100px;">
+                                                    <ul>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">小希</div>
+                                                            <div class="timer">抓中<span>1</span>个</div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">牛奶</div>
+                                                            <div class="timer">抓中<span>1</span>个</div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">May</div>
+                                                            <div class="timer">抓中<span>1</span>个</div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">Lost</div>
+                                                            <div class="timer">抓中<span>1</span>个</div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">15118221381</div>
+                                                            <div class="timer">抓中<span>1</span>个</div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">落雪飞花</div>
+                                                            <div class="timer">抓中<span>1</span>个</div>
+                                                        </li>
+                                                    </ul>
+                                                    <!---->
+                                                </div>
+                                                <div class="swiper-one swiper-slide" style="width: 1467px; margin-right: 100px;">
+                                                    <ul>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">mrs.kang康</div>
+                                                            <div class="timer"><span>3分钟前</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">笙箫默</div>
+                                                            <div class="timer"><span>30分钟前</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">15641971223</div>
+                                                            <div class="timer"><span>34分钟前</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">15128907013</div>
+                                                            <div class="timer"><span>36分钟前</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">15804099175</div>
+                                                            <div class="timer"><span>36分钟前</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">15620312828</div>
+                                                            <div class="timer"><span>38分钟前</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">13551356345</div>
+                                                            <div class="timer"><span>39分钟前</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">18451537870</div>
+                                                            <div class="timer"><span>39分钟前</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">15620312828</div>
+                                                            <div class="timer"><span>40分钟前</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="user-info"><img src="https://asset.6543.cn/page/static/iwanba/no7@2x.png" alt="">18451537870</div>
+                                                            <div class="timer"><span>41分钟前</span></div>
+                                                        </li>
+                                                    </ul>
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---->
+                            <div class="mint-loadmore-bottom"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAbCAMAAABRPb9kAAAAM1BMVEUAAACXl5eampqampqXl5eYmJiYmJiYmJibm5uYmJiXl5eXl5eXl5eXl5eYmJiqqqqXl5cuX3dsAAAAEHRSTlMAgElc+JB5yULy5eK8dlIGQy20aQAAAFlJREFUKM/tyUsOgCAQBNEGRfDf9z+tMtE0ybBybS3rQZWloFtg+OEbxKMDewJWTg4S5xMDHxEkjhGQVNCXGOhLDPQlBvqSCvqt3KDfysZs3wvte3m/l9z+C6SMBM37JNckAAAAAElFTkSuQmCC" class="mint-loadmore-bottom-arrow"> <span class="mint-loadmore-text">上拉可以加载更多</span></div>
+                        </div>
+                    </div>
+                    <div class="ui-toast">
+                        <!---->
+                        <!---->
+                    </div>
+                </div>
+                <!---->
+            </div>
+            <!---->
+            <!----><span class="sound-btn addsound"></span>
+            <audio src="https://asset.6543.cn/page/static/ddwwj/mp3/wwj-bg1.mp3" autoplay="autoplay" preload="" loop="loop" id="bgmusic"></audio>
+        </section>
+    </div>
+    <script src="http://ddwwj.youxideng.cn/h5/common_6db86166.js"></script>
+    <script src="http://ddwwj.youxidsseng.cn/h5/gamedetail_d1548df9.js"></script>
+</body>
+
+</html>
